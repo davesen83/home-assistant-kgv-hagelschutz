@@ -1,10 +1,8 @@
-
 from homeassistant.helpers.update_coordinator import CoordinatorEntity, DataUpdateCoordinator
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.typing import HomeAssistantType
 from datetime import timedelta
 import logging
 import aiohttp
@@ -14,7 +12,7 @@ from .const import DOMAIN, API_BASE_URL, DEFAULT_SCAN_INTERVAL
 
 _LOGGER = logging.getLogger(__name__)
 
-async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry, async_add_entities):
+async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities):
     device_id = entry.data.get("device_id")
     hwtype_id = entry.data.get("hwtype_id", 188)
 
@@ -33,7 +31,7 @@ async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry, async_a
 
 
 class HailCoordinator(DataUpdateCoordinator):
-    def __init__(self, hass: HomeAssistantType, device_id: str, hwtype_id: int):
+    def __init__(self, hass: HomeAssistant, device_id: str, hwtype_id: int):
         super().__init__(
             hass,
             _LOGGER,
